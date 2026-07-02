@@ -19,5 +19,10 @@ pipeline {
                 sh 'docker run -d --rm --name vulnerable-app-container -p 5000:5000 vulnerable-app'
             }
         }
+        stage('Test') {
+            steps {
+                sh 'pytest -v'
+            }
+        }
     }
 }
