@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'pytest -v'
+                sh 'docker run --rm vulnerable-app pytest -v'
             }
         }
     }
