@@ -24,5 +24,16 @@ pipeline {
                 sh 'docker run --rm vulnerable-app pytest -v'
             }
         }
+        stage('Análisis de Seguridad - OWASP ZAP') {
+            steps {
+                sh '''
+                    docker run --rm \
+                    -v $(pwd):/zap/wrk/:rw \
+                    zaproxy/zap-stable zap-baseline.py \
+                    -t http://host.docker.internal:5000 \
+                    -r zap_report.html || true
+                '''
+            }
+        }
     }
 }
